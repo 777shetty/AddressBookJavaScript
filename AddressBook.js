@@ -79,7 +79,12 @@ class Contact {
         return "FirstName = " + this.firstName + ", LastName = " + this.lastName + ", Address = " + this.address +
             ", City = " + this.city + ", State = " + this.state + ", Zip = " + this.zip + ", Phone = " + this.phoneNumber + ", Email = " + this.email;
     }
+    equals() {
+
+    }
 }
+let addressBook = new Array();
+
 try {
     let addressBook = new Array();
     addressBook.push(new Contact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com"));
@@ -88,14 +93,69 @@ try {
 } catch (e) {
     console.error(e);
 }
-function getContact(firstName,lastName){
-    return addressBook.find(contact => contact.firstName == firstName && lastName == lastName);
+
+function getContact(firstName, lastName) {
+    return addressBook.findIndex(contact => (contact.firstName == firstName && contact.lastName == lastName));
+}
+
+function editContact(firstName, lastName, attribute, value) {
+
+    let contactIndex = getContact(firstName, lastName);
+    console.log(contactIndex);
+    if (contactIndex != -1) {
+
+        addressBook[contactIndex][attribute] = value;
+        console.log("Sucessfully edited: " + addressBook[contactIndex] + "\n");
+    } else {
+        console.log("No such contact!");
     }
-    
-    function editContact(firstName, lastName, attribute, value){
-        let contact = getContact(firstName, lastName);
-        contact[attribute] = value;
-        console.log("Sucessfully edited: "+contact);
-    }
+}
     
     editContact("Vinay","Kumar","city","Banaglore");
+    function printContacts(addressBook) {
+        addressBook.forEach((contact, i) => {
+            console.log((i + 1) + ". " + contact.toString() + "\n")
+        });
+    }
+    
+    function deleteContact(firstName, lastName) {
+        let contactIndex = getContact(firstName, lastName);
+        if (contactIndex == -1) {
+            console.log("No such contact!");
+        } else {
+            addressBook.splice(contactIndex, 1);
+            console.log("Successfully deleted!");
+        }
+    }
+    
+    printContacts(addressBook);
+    deleteContact("Vinay", "Raj");
+    printContacts(addressBook);
+
+function totalContact(numberOfContact){
+    return numberOfContact+1;
+}
+
+let numberOfCOntacts = addressBook.reduce(totalContact,0);
+console.log("Number of contacts: "+numberOfCOntacts);
+function addContact(...niranjan) {
+    firstname = niranjan[0];
+    lastname = niranjan[1]; 
+    let countOfPersons = addressBook.filter(contact=>contact.firstName == firstname && contact.lastName == lastname).reduce((totalPeople,e)=>totalPeople+1,0);
+    if (countOfPersons==0){
+        try{
+        let newContact = new Contact(niranjan[0],niranjan[1],niranjan[2],niranjan[3],niranjan[4],niranjan[5],niranjan[6],niranjan[7]);
+        addressBook.push(newContact);
+        console.log("Successfully added!");
+        }catch(e){
+            console.error(e);
+        }
+    }
+    else{
+        console.log("The Contact with name already exists");
+    }
+    
+}
+addContact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com");
+addContact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com");
+printContacts(addressBook);
