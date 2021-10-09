@@ -136,4 +136,16 @@ function totalContact(numberOfContact){
 }
 
 let numberOfCOntacts = addressBook.reduce(totalContact,0);
-console.log("Number of contacts: "+numberOfCOntacts);
+console.log("The person "+firstName+" "+lastName+" is not found in the city ");
+
+function viewContactsByCity(city,array){
+    let contacts = array.filter(e=>e.city == city).map(e=>e.firstName+" "+e.lastName);
+    return contacts;
+}
+
+City = "Bangalore";
+let contacts = viewContactsByCity(City,addressBook);
+if(contacts.length>0)
+console.log("The people in the city "+City+" are :"+contacts);
+else
+console.log("No people found in the city");
