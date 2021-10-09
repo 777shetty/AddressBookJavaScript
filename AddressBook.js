@@ -83,7 +83,7 @@ class Contact {
 
     }
 }
-let addressBook = new Array();s
+let addressBook = new Array();
 try {
     let addressBook = new Array();
     addressBook.push(new Contact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com"));
@@ -172,3 +172,13 @@ function getContactsCountByState(state,array){
     return count;
 }
 console.log("No of people in State "+State+": "+getContactsCountByState(State,addressBook));
+
+function sortContactsByName(array){
+    array.sort((a,b)=> ((a.firstName+a.lastName)>(b.firstName+b.lastName)) 
+    ? 1 
+    : (((a.firstName+a.lastName)<(b.firstName+b.lastName))? -1 : 0));
+    return array;
+}
+
+addressBook = sortContactsByName(addressBook);
+printContacts(addressBook);
