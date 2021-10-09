@@ -79,7 +79,11 @@ class Contact {
         return "FirstName = " + this.firstName + ", LastName = " + this.lastName + ", Address = " + this.address +
             ", City = " + this.city + ", State = " + this.state + ", Zip = " + this.zip + ", Phone = " + this.phoneNumber + ", Email = " + this.email;
     }
+    equals() {
+
+    }
 }
+let addressBook = new Array();s
 try {
     let addressBook = new Array();
     addressBook.push(new Contact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com"));
@@ -88,14 +92,41 @@ try {
 } catch (e) {
     console.error(e);
 }
-function getContact(firstName,lastName){
-    return addressBook.find(contact => contact.firstName == firstName && lastName == lastName);
+
+function getContact(firstName, lastName) {
+    return addressBook.findIndex(contact => (contact.firstName == firstName && contact.lastName == lastName));
+}
+
+function editContact(firstName, lastName, attribute, value) {
+
+    let contactIndex = getContact(firstName, lastName);
+    console.log(contactIndex);
+    if (contactIndex != -1) {
+
+        addressBook[contactIndex][attribute] = value;
+        console.log("Sucessfully edited: " + addressBook[contactIndex] + "\n");
+    } else {
+        console.log("No such contact!");
     }
-    
-    function editContact(firstName, lastName, attribute, value){
-        let contact = getContact(firstName, lastName);
-        contact[attribute] = value;
-        console.log("Sucessfully edited: "+contact);
-    }
+}
     
     editContact("Vinay","Kumar","city","Banaglore");
+    function printContacts(addressBook) {
+        addressBook.forEach((contact, i) => {
+            console.log((i + 1) + ". " + contact.toString() + "\n")
+        });
+    }
+    
+    function deleteContact(firstName, lastName) {
+        let contactIndex = getContact(firstName, lastName);
+        if (contactIndex == -1) {
+            console.log("No such contact!");
+        } else {
+            addressBook.splice(contactIndex, 1);
+            console.log("Successfully deleted!");
+        }
+    }
+    
+    printContacts(addressBook);
+    deleteContact("Vinay", "Raj");
+    printContacts(addressBook);
