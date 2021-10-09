@@ -19,7 +19,7 @@ class Contact {
             this._firstName = name;
         else throw 'First Name is incorrect';
     }
-    get lastName() { return this._firstName; }
+    get lastName() { return this._lastName; }
     set lastName(name) {
         let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
         if (nameRegex.test(name))
@@ -77,12 +77,25 @@ class Contact {
 
     toString() {
         return "FirstName = " + this.firstName + ", LastName = " + this.lastName + ", Address = " + this.address +
-            ", City = " + this.city + ", State = " + this.state + ", Zip = " + this.zip + ", Phone = " + this.phone + ", Email = " + this.email;
+            ", City = " + this.city + ", State = " + this.state + ", Zip = " + this.zip + ", Phone = " + this.phoneNumber + ", Email = " + this.email;
     }
 }
 try {
-    let contact = new Contact("Rahul", "Pandey", "2nd cross, electronic city", "Bangalore", "Karnataka", "560100", "9191123498", "rahulp@yahoo.com");
-    console.log(contact.toString());
+    let addressBook = new Array();
+    addressBook.push(new Contact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com"));
+    addressBook.push(new Contact("Vinay", "Raj", "22nd cross, MGRoad", "Mysore", "Karnataka", "570023", "918478585692", "vinayraj@redifmail.com"));
+    console.log(addressBook[1].toString());
 } catch (e) {
     console.error(e);
 }
+function getContact(firstName,lastName){
+    return addressBook.find(contact => contact.firstName == firstName && lastName == lastName);
+    }
+    
+    function editContact(firstName, lastName, attribute, value){
+        let contact = getContact(firstName, lastName);
+        contact[attribute] = value;
+        console.log("Sucessfully edited: "+contact);
+    }
+    
+    editContact("Vinay","Kumar","city","Banaglore");
