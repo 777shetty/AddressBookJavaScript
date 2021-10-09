@@ -130,3 +130,10 @@ function editContact(firstName, lastName, attribute, value) {
     printContacts(addressBook);
     deleteContact("Vinay", "Raj");
     printContacts(addressBook);
+
+function totalContact(numberOfContact){
+    return numberOfContact+1;
+}
+
+let numberOfCOntacts = addressBook.reduce(totalContact,0);
+console.log("Number of contacts: "+numberOfCOntacts);
