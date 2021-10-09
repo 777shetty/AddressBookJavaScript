@@ -83,7 +83,8 @@ class Contact {
 
     }
 }
-let addressBook = new Array();s
+let addressBook = new Array();
+
 try {
     let addressBook = new Array();
     addressBook.push(new Contact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com"));
@@ -137,3 +138,24 @@ function totalContact(numberOfContact){
 
 let numberOfCOntacts = addressBook.reduce(totalContact,0);
 console.log("Number of contacts: "+numberOfCOntacts);
+function addContact(...niranjan) {
+    firstname = niranjan[0];
+    lastname = niranjan[1]; 
+    let countOfPersons = addressBook.filter(contact=>contact.firstName == firstname && contact.lastName == lastname).reduce((totalPeople,e)=>totalPeople+1,0);
+    if (countOfPersons==0){
+        try{
+        let newContact = new Contact(niranjan[0],niranjan[1],niranjan[2],niranjan[3],niranjan[4],niranjan[5],niranjan[6],niranjan[7]);
+        addressBook.push(newContact);
+        console.log("Successfully added!");
+        }catch(e){
+            console.error(e);
+        }
+    }
+    else{
+        console.log("The Contact with name already exists");
+    }
+    
+}
+addContact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com");
+addContact("Chethan", "Shetty", "28th cross, vidhyaranyapuram", "Mysore", "Karnataka", "570008", "98197832936", "chethanshetty@gmail.com");
+printContacts(addressBook);
